@@ -8,12 +8,13 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { NodeEditor } from "@/views/note-editor";
 
 export default function Home() {
   return (
     <SidebarInset>
-      <header className="flex h-16 shrink-0 items-center gap-2">
-        <div className="flex items-center gap-2 px-4">
+      <header className="flex h-10 shrink-0 items-center gap-2">
+        <div className="flex items-center gap-2 px-6">
           <SidebarTrigger className="-ml-1" />
           <Separator
             orientation="vertical"
@@ -34,7 +35,9 @@ export default function Home() {
           </Breadcrumb>
         </div>
       </header>
-      <main className="font-sans size-full">main section</main>
+      <main className="font-sans flex-1 min-h-0">
+        <NodeEditor />
+      </main>
     </SidebarInset>
     // <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
     //   <a
