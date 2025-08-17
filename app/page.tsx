@@ -1,3 +1,4 @@
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,7 +14,7 @@ import { NodeEditor } from "@/views/note-editor";
 export default function Home() {
   return (
     <SidebarInset>
-      <header className="flex h-10 shrink-0 items-center gap-2">
+      <header className="flex h-10 shrink-0 items-center gap-2 justify-between pe-2">
         <div className="flex items-center gap-2 px-6">
           <SidebarTrigger className="-ml-1" />
           <Separator
@@ -34,6 +35,7 @@ export default function Home() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
+        <ThemeSwitcher />
       </header>
       <main className="font-sans flex-1 min-h-0">
         <NodeEditor />

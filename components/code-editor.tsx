@@ -21,7 +21,7 @@ export function CodeEditor({
   height = "100%",
   className,
 }: CodeEditorProps) {
-  const { theme } = useTheme();
+  const { resolvedTheme: theme } = useTheme();
   return (
     <div className={className}>
       <CodeMirror
@@ -33,6 +33,10 @@ export function CodeEditor({
           EditorView.theme({
             "&": {
               fontSize: "14px",
+            },
+            ".cm-scroller": {
+              fontFamily: "var(--font-ibm-plex-mono)",
+              fontWeight: "500",
             },
             ".cm-content": {
               padding: "16px",
@@ -47,7 +51,6 @@ export function CodeEditor({
             ".cm-gutter.cm-foldGutter  span": {
               opacity: "0 !important",
               pointerEvents: "none !important",
-              // display: "none !important",
             },
           }),
           EditorView.lineWrapping,
@@ -66,6 +69,7 @@ export function CodeEditor({
           rectangularSelection: true,
           highlightSelectionMatches: true,
           searchKeymap: true,
+          tabSize: 2,
         }}
       />
     </div>

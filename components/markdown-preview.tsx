@@ -1,10 +1,15 @@
 "use client";
 
+import withClientOnlyRender from "@/hoc/withClientOnlyRender";
 import BaseMarkdownPreview from "@uiw/react-markdown-preview";
 import { useTheme } from "next-themes";
 
-export function MarkdownPreview({ markdown }: { markdown: string }) {
-  const { theme } = useTheme();
+export const MarkdownPreview = withClientOnlyRender(function MarkdownPreview({
+  markdown,
+}: {
+  markdown: string;
+}) {
+  const { resolvedTheme: theme } = useTheme();
 
   return (
     <BaseMarkdownPreview
@@ -15,4 +20,4 @@ export function MarkdownPreview({ markdown }: { markdown: string }) {
       }}
     />
   );
-}
+});
