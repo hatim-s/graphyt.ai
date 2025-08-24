@@ -259,4 +259,14 @@
   .dark * {
     scrollbar-color: oklch(from var(--primary) l c h / 0.15) transparent;
   }
+
+  .graphyt-markdown-preview ol {
+    list-style: decimal;
+    padding-left: 2rem;
+  }
+
+  .graphyt-markdown-preview ul {
+    list-style: disc;
+    padding-left: 2rem;
+  }
 }

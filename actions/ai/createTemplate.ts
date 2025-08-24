@@ -4,7 +4,8 @@ import Groq from "groq-sdk";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-const SAMPLE_TEMPLATE = `
+const SAMPLE_TEMPLATES = [
+  `
 # 📅 {{DATE}} — {{TITLE}}
 
 **Tags:** #journal #daily | [[{{LINKED_NOTE}}]]
@@ -46,7 +47,45 @@ const SAMPLE_TEMPLATE = `
 
 ---  
 
-*Fill in each section after your day ends. Use markdown links to interconnect entries and build a searchable knowledge base.*`;
+*Fill in each section after your day ends. Use markdown links to interconnect entries and build a searchable knowledge base.*`,
+
+  `# {{DATE}}  <!-- e.g., 2025-08-24 -->
+
+## Links & Tags
+- [[Related‑Entry]]  
+- #tag1 #tag2
+
+## Gratitude (3 items)
+- 
+- 
+- 
+
+## Top 3 Goals for the Day
+1. 
+2. 
+3. 
+
+## Daily Log (~1000 words)
+> Write freely. Use **bold** for important ideas, *italics* for insights, and \`highlight\` for items you may want to revisit later.
+
+## Highlights (Progressive Summarization)
+- **Key takeaway 1**
+- **Key takeaway 2**
+- **Key takeaway 3**
+
+## Reflection
+- **What went well:**  
+- **What could improve:**  
+- **New insight / lesson:**  
+
+## Follow‑up / Next Steps
+- 
+- 
+
+---  
+
+*Link this entry to others using the double‑bracket syntax above.*`,
+];
 
 const SYSTEM_PROMPT = `You are an expert template creator for markdown. You are tasked to create a template for a markdown file based on the user's prompt. The user will be using this template to write down their everyday journal. You need to create an optimized template that is easy to follow and stick to. 
 

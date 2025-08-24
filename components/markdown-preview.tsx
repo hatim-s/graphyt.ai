@@ -13,7 +13,7 @@ export const MarkdownPreview = withClientOnlyRender(function MarkdownPreview({
 
   return (
     <BaseMarkdownPreview
-      className="px-8 py-4 h-full overflow-auto !font-mono"
+      className="px-8 py-4 h-full overflow-auto !font-mono graphyt-markdown-preview"
       source={markdown}
       wrapperElement={{
         "data-color-mode": theme === "dark" ? "dark" : "light",
