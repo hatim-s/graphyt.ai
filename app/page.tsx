@@ -37,7 +37,7 @@ export default function Home() {
         </div>
         <ThemeSwitcher />
       </header>
-      <main className="font-sans flex-1 min-h-0">
+      <main className="font-sans flex-1 min-h-0 p-4">
         <NodeEditor />
       </main>
     </SidebarInset>

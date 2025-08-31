@@ -9,8 +9,13 @@ import {
 import { Box } from "@/components/ui/box";
 import { MarkdownPreview } from "@/components/markdown-preview";
 import { Button } from "@/components/ui/button";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, Loader } from "lucide-react";
 import { createTemplate } from "@/actions/ai/createTemplate";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 export function NoteMarkdownEditor() {
   const { markdown, setMarkdown } = useNoteEditorContext();
@@ -19,7 +24,7 @@ export function NoteMarkdownEditor() {
 
   return (
     <div
-      className="border rounded-lg overflow-hidden flex-1"
+      className="overflow-hidden flex-1"
       ref={(ref) => {
         ref?.clientHeight && setHeight(ref.clientHeight);
       }}
@@ -36,7 +41,7 @@ export function NoteMarkdownEditor() {
 export function NoteMarkdownViewer() {
   const { markdown } = useNoteEditorContext();
   return (
-    <div className="border rounded-lg overflow-auto flex-1 font-mono">
+    <div className="overflow-auto flex-1 font-mono">
       <MarkdownPreview markdown={markdown} />
     </div>
   );
@@ -87,12 +92,20 @@ export function NodeEditor() {
         onClick={handleCreateTemplate}
         disabled={isGenerating}
       >
-        {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus />}
+        {isGenerating ? <Loader className="h-4 w-4 animate-spin" /> : <Plus />}
       </Button>
-      <Box className="flex flex-row gap-4 p-4 size-full">
-        <NoteMarkdownEditor />
-        <NoteMarkdownViewer />
-      </Box>
+      <ResizablePanelGroup
+        className="flex flex-row border rounded-lg"
+        direction="horizontal"
+      >
+        <ResizablePanel className="flex-1 flex flex-col">
+          <NoteMarkdownEditor />
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel className="flex-1 flex flex-col">
+          <NoteMarkdownViewer />
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </NodeEditorProvider>
   );
 }
