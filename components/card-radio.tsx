@@ -34,7 +34,10 @@ export function CardRadio({
       onValueChange={onChange}
     >
       {items.map((item, index) => (
-        <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-primary has-[[aria-checked=true]]:bg-primary/30">
+        <Label
+          className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-primary has-[[aria-checked=true]]:bg-primary/30"
+          key={item.id ?? `option-${index}`}
+        >
           <RadioGroupItem
             id={item.id ?? `option-${index}`}
             value={item.id ?? `option-${index}`}
