@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CodeEditor } from "../components/code-editor";
 import {
   NodeEditorProvider,
@@ -47,11 +47,16 @@ export function NoteMarkdownViewer() {
   );
 }
 
-export function NodeEditor() {
+export function NoteEditor({ initialMarkdown }: { initialMarkdown?: string }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [streamedMarkdown, setStreamedMarkdown] = useState<string | undefined>(
-    undefined
+    initialMarkdown ?? undefined
   );
+
+  // sync initialMarkdown with streamedMarkdown whenever initialMarkdown changes
+  useEffect(() => {
+    setStreamedMarkdown(initialMarkdown ?? undefined);
+  }, [initialMarkdown]);
 
   const handleCreateTemplate = async () => {
     setIsGenerating(true);

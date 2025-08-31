@@ -26,6 +26,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { useRouter } from "next/navigation";
 
 const StepContents = [
   {
@@ -68,8 +69,9 @@ export function NewNote() {
     isNextDisabled = !formData.title;
   }
 
+  const router = useRouter();
   const handleCreateNote = useCallback(() => {
-    console.log(formData);
+    router.push(`/${formData.type}/new?templateId=${formData.template}`);
   }, [formData]);
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
@@ -156,11 +158,11 @@ export function NewNote() {
                   />
                 </Button>
               ) : (
-                // <DialogClose asChild>
-                <Button type="button" onClick={handleCreateNote}>
-                  Create Note
-                </Button>
-                // </DialogClose>
+                <DialogClose asChild>
+                  <Button type="button" onClick={handleCreateNote}>
+                    Create Note
+                  </Button>
+                </DialogClose>
               )}
             </DialogFooter>
           </div>
