@@ -20,6 +20,12 @@ import { NewNoteFormData } from "./types";
 import { NoteDetailsForm } from "./components/note-details-form";
 import { NoteTemplateSelector } from "./components/note-template-selector";
 import { Stack } from "@/components/ui/stack";
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 const StepContents = [
   {
@@ -44,7 +50,6 @@ const StepContents = [
 
 export function NewNote() {
   const [step, setStep] = useState(1);
-
   const [formData, setFormData] = useState<Partial<NewNoteFormData>>(
     () => ({})
   );
@@ -52,12 +57,11 @@ export function NewNote() {
   const totalSteps = StepContents.length;
 
   const handleContinue = () => {
+    carouselApi?.scrollNext();
     if (step < totalSteps) {
       setStep(step + 1);
     }
   };
-
-  const StepComponent = StepContents[step - 1].Component;
 
   let isNextDisabled = false;
   if (step === 2) {
@@ -67,6 +71,11 @@ export function NewNote() {
   const handleCreateNote = useCallback(() => {
     console.log(formData);
   }, [formData]);
+
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const setApi = useCallback((api: CarouselApi) => {
+    setCarouselApi(api);
+  }, []);
 
   return (
     <Dialog
@@ -85,16 +94,38 @@ export function NewNote() {
       </DialogTrigger>
       <DialogContent className="gap-0 [&>button:last-child]:text-white sm:max-w-[600px]">
         <Stack direction="column" className="gap-y-6">
+          {/* header */}
           <DialogHeader>
             <DialogTitle>Create a new note</DialogTitle>
             <DialogDescription>
               Input your note details and select a template to get started.
             </DialogDescription>
           </DialogHeader>
-          <div className="h-[300px]">
-            <StepComponent formData={formData} setFormData={setFormData} />
-          </div>
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+
+          <Carousel
+            className="w-full"
+            disableKeyboardNavigation
+            setApi={setApi}
+            opts={{
+              duration: 20,
+            }}
+          >
+            <CarouselContent className="w-full gap-4 !m-0">
+              {StepContents.map((step, index) => (
+                <CarouselItem className="!p-0" key={index}>
+                  <div className="h-[300px]">
+                    <step.Component
+                      formData={formData}
+                      setFormData={setFormData}
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+
+          {/* footer */}
+          <div className="flex justify-between gap-4 flex-row items-center">
             <div className="flex justify-center space-x-1.5 max-sm:order-1">
               {[...Array(totalSteps)].map((_, index) => (
                 <div
@@ -108,9 +139,7 @@ export function NewNote() {
             </div>
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="ghost">
-                  Cancel
-                </Button>
+                <Button variant="ghost">Cancel</Button>
               </DialogClose>
               {step < totalSteps ? (
                 <Button

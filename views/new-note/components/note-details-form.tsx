@@ -32,7 +32,10 @@ export function NoteDetailsForm({ formData, setFormData }: StepComponentProps) {
 
   return (
     <Stack className="space-y-4">
-      <Label className="flex flex-col items-start" htmlFor="title">
+      <Label
+        className="flex flex-col items-start overflow-visible"
+        htmlFor="title"
+      >
         <Box>
           <Typography className="leading-none text-sm" variant="p">
             Title

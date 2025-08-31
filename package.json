@@ -36,6 +36,7 @@
     "@uiw/react-markdown-preview": "^5.1.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
     "groq-sdk": "^0.30.0",
     "i": "^0.3.7",
     "lucide-react": "^0.539.0",
