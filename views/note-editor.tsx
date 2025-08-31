@@ -85,7 +85,7 @@ export function NodeEditor() {
 
   return (
     <NodeEditorProvider externalMarkdown={streamedMarkdown}>
-      <Button
+      {/* <Button
         className="absolute rounded-full top-1 right-12"
         size="icon"
         variant="ghost"
@@ -93,7 +93,7 @@ export function NodeEditor() {
         disabled={isGenerating}
       >
         {isGenerating ? <Loader className="h-4 w-4 animate-spin" /> : <Plus />}
-      </Button>
+      </Button> */}
       <ResizablePanelGroup
         className="flex flex-row border rounded-lg"
         direction="horizontal"

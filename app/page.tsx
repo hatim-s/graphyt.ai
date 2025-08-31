@@ -1,4 +1,5 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Box } from "@/components/ui/box";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,13 +10,15 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { Stack } from "@/components/ui/stack";
+import { NewNote } from "@/views/new-note";
 import { NodeEditor } from "@/views/note-editor";
 
 export default function Home() {
   return (
     <SidebarInset>
       <header className="flex h-10 shrink-0 items-center gap-2 justify-between pe-2">
-        <div className="flex items-center gap-2 px-6">
+        <Stack className="items-center gap-2 px-6" direction="row">
           <SidebarTrigger className="-ml-1" />
           <Separator
             orientation="vertical"
@@ -34,8 +37,11 @@ export default function Home() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-        </div>
-        <ThemeSwitcher />
+        </Stack>
+        <Box>
+          <NewNote />
+          <ThemeSwitcher />
+        </Box>
       </header>
       <main className="font-sans flex-1 min-h-0 p-4">
         <NodeEditor />
