@@ -7,7 +7,7 @@ type BaseTypographyProps = {
 };
 
 const TypographyH1 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
-  function TypographyH1({ className, children }: BaseTypographyProps) {
+  function TypographyH1({ className, children }, ref) {
     return (
       <h1
         className={cn(
@@ -22,7 +22,7 @@ const TypographyH1 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
 );
 
 const TypographyH2 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
-  function TypographyH2({ className, children }: BaseTypographyProps) {
+  function TypographyH2({ className, children }, ref) {
     return (
       <h2
         className={cn(
@@ -37,7 +37,7 @@ const TypographyH2 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
 );
 
 const TypographyH3 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
-  function TypographyH3({ className, children }: BaseTypographyProps) {
+  function TypographyH3({ className, children }, ref) {
     return (
       <h3
         className={cn(
@@ -52,7 +52,7 @@ const TypographyH3 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
 );
 
 const TypographyH4 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
-  function TypographyH4({ className, children }: BaseTypographyProps) {
+  function TypographyH4({ className, children }, ref) {
     return (
       <h4
         className={cn(
@@ -67,7 +67,7 @@ const TypographyH4 = forwardRef<HTMLHeadingElement, BaseTypographyProps>(
 );
 
 const TypographyP = forwardRef<HTMLParagraphElement, BaseTypographyProps>(
-  function TypographyP({ className, children }: BaseTypographyProps) {
+  function TypographyP({ className, children }, ref) {
     return (
       <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}>
         {children}
@@ -77,7 +77,7 @@ const TypographyP = forwardRef<HTMLParagraphElement, BaseTypographyProps>(
 );
 
 const TypographyBlockquote = forwardRef<HTMLQuoteElement, BaseTypographyProps>(
-  function TypographyBlockquote({ className, children }: BaseTypographyProps) {
+  function TypographyBlockquote({ className, children }, ref) {
     return (
       <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)}>
         {children}
@@ -87,7 +87,7 @@ const TypographyBlockquote = forwardRef<HTMLQuoteElement, BaseTypographyProps>(
 );
 
 const TypographyList = forwardRef<HTMLUListElement, BaseTypographyProps>(
-  function TypographyList({ className, children }: BaseTypographyProps) {
+  function TypographyList({ className, children }, ref) {
     const childArr = React.Children.toArray(children);
     return (
       <ul className={cn("my-6 ml-6 list-disc [&>li]:mt-2", className)}>
@@ -100,7 +100,7 @@ const TypographyList = forwardRef<HTMLUListElement, BaseTypographyProps>(
 );
 
 const TypographyInlineCode = forwardRef<HTMLElement, BaseTypographyProps>(
-  function TypographyInlineCode({ className, children }: BaseTypographyProps) {
+  function TypographyInlineCode({ className, children }, ref) {
     return (
       <code
         className={cn(
@@ -115,7 +115,7 @@ const TypographyInlineCode = forwardRef<HTMLElement, BaseTypographyProps>(
 );
 
 const TypographyLarge = forwardRef<HTMLDivElement, BaseTypographyProps>(
-  function TypographyLarge({ className, children }: BaseTypographyProps) {
+  function TypographyLarge({ className, children }, ref) {
     return (
       <div className={cn("text-lg font-semibold", className)}>{children}</div>
     );
@@ -123,7 +123,7 @@ const TypographyLarge = forwardRef<HTMLDivElement, BaseTypographyProps>(
 );
 
 const TypographySmall = forwardRef<HTMLElement, BaseTypographyProps>(
-  function TypographySmall({ className, children }: BaseTypographyProps) {
+  function TypographySmall({ className, children }, ref) {
     return (
       <small className={cn("text-sm leading-none font-medium", className)}>
         {children}
@@ -133,7 +133,7 @@ const TypographySmall = forwardRef<HTMLElement, BaseTypographyProps>(
 );
 
 const TypographyMuted = forwardRef<HTMLParagraphElement, BaseTypographyProps>(
-  function TypographyMuted({ className, children }: BaseTypographyProps) {
+  function TypographyMuted({ className, children }, ref) {
     return (
       <p className={cn("text-muted-foreground text-sm", className)}>
         {children}
