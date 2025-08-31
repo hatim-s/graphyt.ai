@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CodeEditor } from "../components/code-editor";
 import {
   NodeEditorProvider,
@@ -47,11 +47,16 @@ export function NoteMarkdownViewer() {
   );
 }
 
-export function NodeEditor() {
+export function NoteEditor({ initialMarkdown }: { initialMarkdown?: string }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [streamedMarkdown, setStreamedMarkdown] = useState<string | undefined>(
-    undefined
+    initialMarkdown ?? undefined
   );
+
+  // sync initialMarkdown with streamedMarkdown whenever initialMarkdown changes
+  useEffect(() => {
+    setStreamedMarkdown(initialMarkdown ?? undefined);
+  }, [initialMarkdown]);
 
   const handleCreateTemplate = async () => {
     setIsGenerating(true);
@@ -85,7 +90,7 @@ export function NodeEditor() {
 
   return (
     <NodeEditorProvider externalMarkdown={streamedMarkdown}>
-      <Button
+      {/* <Button
         className="absolute rounded-full top-1 right-12"
         size="icon"
         variant="ghost"
@@ -93,7 +98,7 @@ export function NodeEditor() {
         disabled={isGenerating}
       >
         {isGenerating ? <Loader className="h-4 w-4 animate-spin" /> : <Plus />}
-      </Button>
+      </Button> */}
       <ResizablePanelGroup
         className="flex flex-row border rounded-lg"
         direction="horizontal"
