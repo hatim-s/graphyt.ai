@@ -8,6 +8,14 @@ import {
 } from "@/contexts/NodeEditorContext";
 import { Box } from "@/components/ui/box";
 import { MarkdownPreview } from "@/components/markdown-preview";
+import { Button } from "@/components/ui/button";
+import { Plus, Loader2, Loader } from "lucide-react";
+import { createTemplate } from "@/actions/ai/createTemplate";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 export function NoteMarkdownEditor() {
   const { markdown, setMarkdown } = useNoteEditorContext();
@@ -16,7 +24,7 @@ export function NoteMarkdownEditor() {
 
   return (
     <div
-      className="border rounded-lg overflow-hidden flex-1"
+      className="overflow-hidden flex-1"
       ref={(ref) => {
         ref?.clientHeight && setHeight(ref.clientHeight);
       }}
@@ -33,19 +41,71 @@ export function NoteMarkdownEditor() {
 export function NoteMarkdownViewer() {
   const { markdown } = useNoteEditorContext();
   return (
-    <div className="border rounded-lg overflow-auto flex-1">
+    <div className="overflow-auto flex-1 font-mono">
       <MarkdownPreview markdown={markdown} />
     </div>
   );
 }
 
 export function NodeEditor() {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [streamedMarkdown, setStreamedMarkdown] = useState<string | undefined>(
+    undefined
+  );
+
+  const handleCreateTemplate = async () => {
+    setIsGenerating(true);
+    setStreamedMarkdown(""); // Clear and start fresh
+
+    try {
+      // You can customize this prompt or make it dynamic
+      const userPrompt =
+        "Create a daily journal template with sections for gratitude, goals, and reflections";
+
+      const stream = await createTemplate(userPrompt);
+
+      // Process the stream
+      let accumulatedContent = "";
+
+      for await (const chunk of stream) {
+        const content = chunk.choices[0]?.delta?.content || "";
+        accumulatedContent += content;
+
+        // Update the markdown in real-time
+        setStreamedMarkdown(accumulatedContent);
+      }
+    } catch (error) {
+      console.error("Error generating template:", error);
+    } finally {
+      setIsGenerating(false);
+      // Reset streamedMarkdown after generation is complete
+      setTimeout(() => setStreamedMarkdown(undefined), 100);
+    }
+  };
+
   return (
-    <NodeEditorProvider>
-      <Box className="flex flex-row gap-4 p-4 size-full">
-        <NoteMarkdownEditor />
-        <NoteMarkdownViewer />
-      </Box>
+    <NodeEditorProvider externalMarkdown={streamedMarkdown}>
+      <Button
+        className="absolute rounded-full top-1 right-12"
+        size="icon"
+        variant="ghost"
+        onClick={handleCreateTemplate}
+        disabled={isGenerating}
+      >
+        {isGenerating ? <Loader className="h-4 w-4 animate-spin" /> : <Plus />}
+      </Button>
+      <ResizablePanelGroup
+        className="flex flex-row border rounded-lg"
+        direction="horizontal"
+      >
+        <ResizablePanel className="flex-1 flex flex-col">
+          <NoteMarkdownEditor />
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel className="flex-1 flex flex-col">
+          <NoteMarkdownViewer />
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </NodeEditorProvider>
   );
 }

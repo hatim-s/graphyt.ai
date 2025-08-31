@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, useEffect } from "react";
 
 type NodeEditorContextType = {
   markdown: string;
@@ -41,10 +41,30 @@ function hello() {
 
 export function NodeEditorProvider({
   children,
+  initialMarkdown,
+  externalMarkdown,
+  onMarkdownChange,
 }: {
   children: React.ReactNode;
+  initialMarkdown?: string;
+  externalMarkdown?: string;
+  onMarkdownChange?: (markdown: string) => void;
 }) {
-  const [markdown, setMarkdown] = useState(INITIAL_MARKDOWN);
+  const [markdown, setMarkdown] = useState(initialMarkdown || INITIAL_MARKDOWN);
+
+  // Update markdown when external markdown changes (for streaming)
+  useEffect(() => {
+    if (externalMarkdown !== undefined) {
+      setMarkdown(externalMarkdown);
+    }
+  }, [externalMarkdown]);
+
+  // Notify parent of markdown changes
+  useEffect(() => {
+    if (onMarkdownChange) {
+      onMarkdownChange(markdown);
+    }
+  }, [markdown, onMarkdownChange]);
 
   const value = useMemo(
     () => ({ markdown, setMarkdown }),
