@@ -1,26 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/sidenav";
 import { ThemeProvider } from "@/contexts/ThemeProvider";
-import { Stack } from "@/components/ui/stack";
-import { Separator } from "@/components/ui/separator";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Box } from "@/components/ui/box";
-import { NewNote } from "@/views/new-note";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,39 +35,7 @@ export default function RootLayout({
           enableSystem
           // disableTransitionOnChange
         >
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>
-              <header className="flex h-10 shrink-0 items-center gap-2 justify-between pe-2">
-                <Stack className="items-center gap-2 px-6" direction="row">
-                  <SidebarTrigger className="-ml-1" />
-                  <Separator
-                    orientation="vertical"
-                    className="mr-2 data-[orientation=vertical]:h-4"
-                  />
-                  <Breadcrumb>
-                    <BreadcrumbList>
-                      <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink href="#">
-                          Building Your Application
-                        </BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator className="hidden md:block" />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                      </BreadcrumbItem>
-                    </BreadcrumbList>
-                  </Breadcrumb>
-                </Stack>
-                <Box>
-                  <NewNote />
-                  <ThemeSwitcher />
-                </Box>
-              </header>
-
-              {children}
-            </SidebarInset>
-          </SidebarProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
