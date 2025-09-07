@@ -151,6 +151,12 @@ function SidebarProvider({
   );
 }
 
+type SidebarProps = React.ComponentProps<"div"> & {
+  side?: "left" | "right";
+  variant?: "sidebar" | "floating" | "inset";
+  collapsible?: "offcanvas" | "icon" | "none";
+};
+
 function Sidebar({
   side = "left",
   variant = "sidebar",
@@ -158,11 +164,7 @@ function Sidebar({
   className,
   children,
   ...props
-}: React.ComponentProps<"div"> & {
-  side?: "left" | "right";
-  variant?: "sidebar" | "floating" | "inset";
-  collapsible?: "offcanvas" | "icon" | "none";
-}) {
+}: SidebarProps) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
   if (collapsible === "none") {
@@ -723,4 +725,5 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
+  type SidebarProps,
 };

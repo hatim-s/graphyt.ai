@@ -23,11 +23,10 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useGetUser } from "@/hooks/auth/useGetUser";
+import { User } from "@/types/user";
 
-export function NavUser() {
+export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
-  const user = useGetUser();
 
   const userName = user?.user_metadata.full_name;
   const userEmail = user?.email;

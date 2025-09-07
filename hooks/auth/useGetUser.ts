@@ -1,14 +1,6 @@
 import { createSupabaseClient } from "@/supabase/client";
+import { User } from "@/types/user";
 import { useEffect, useState } from "react";
-
-type User = {
-  email: string;
-  user_metadata: {
-    avatar_url: string;
-    full_name: string;
-    email: string;
-  };
-};
 
 export function useGetUser() {
   const [user, setUser] = useState<User | null>(null);

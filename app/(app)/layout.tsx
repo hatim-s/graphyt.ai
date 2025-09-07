@@ -21,6 +21,7 @@ import {
 import { Box } from "@/components/ui/box";
 import { NewNote } from "@/views/new-note";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { User } from "@/types/user";
 
 export default async function Layout({ children }: PropsWithChildren) {
   const supabase = await createSupabaseClient();
@@ -30,9 +31,13 @@ export default async function Layout({ children }: PropsWithChildren) {
     redirect("/auth/login");
   }
 
+  const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user as unknown as User;
+
   return (
     <SidebarProvider>
-      <AppSidebar />
+      {/* user is defined*/}
+      <AppSidebar user={user as unknown as User} />
       <SidebarInset>
         <header className="flex h-10 shrink-0 items-center gap-2 justify-between pe-2">
           <Stack className="items-center gap-2 px-6" direction="row">
