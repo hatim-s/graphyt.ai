@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PasswordInput } from "./password-input";
 
+const CallbackRoute = "/";
+
 export function SignUpForm({
   className,
   ...props
@@ -45,7 +47,7 @@ export function SignUpForm({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/protected`,
+          emailRedirectTo: `${window.location.origin}/${CallbackRoute}`,
         },
       });
       if (error) throw error;
