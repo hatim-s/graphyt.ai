@@ -6,10 +6,7 @@ import {
   NodeEditorProvider,
   useNoteEditorContext,
 } from "@/contexts/NodeEditorContext";
-import { Box } from "@/components/ui/box";
 import { MarkdownPreview } from "@/components/markdown-preview";
-import { Button } from "@/components/ui/button";
-import { Plus, Loader2, Loader } from "lucide-react";
 import { createTemplate } from "@/actions/ai/createTemplate";
 import {
   ResizableHandle,

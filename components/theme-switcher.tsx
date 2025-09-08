@@ -5,25 +5,12 @@ import { LaptopMinimal, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useEventCallback } from "@/hooks/use-event-callback";
 
 const THEMES = ["light", "dark", "system"];
 
-const THEME_VS_ICONS = {
-  light: Sun,
-  dark: Moon,
-  system: LaptopMinimal,
-};
-
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
-  const ThemeIcon = THEME_VS_ICONS[theme as keyof typeof THEME_VS_ICONS];
 
   const toggleTheme = useEventCallback(() => {
     const nextTheme =
@@ -38,7 +25,9 @@ export function ThemeSwitcher() {
       size="icon"
       onClick={toggleTheme}
     >
-      <ThemeIcon className="size-4" />
+      {theme === "light" && <Sun className="size-4" />}
+      {theme === "dark" && <Moon className="size-4" />}
+      {theme === "system" && <LaptopMinimal className="size-4" />}
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
