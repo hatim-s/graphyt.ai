@@ -26,14 +26,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarProps,
 } from "@/components/ui/sidebar";
+import { UserResponse } from "@supabase/supabase-js";
+import { User } from "@/types/user";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Playground",
@@ -122,16 +120,16 @@ const data = {
     },
   ],
   navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
+    // {
+    //   title: "Support",
+    //   url: "#",
+    //   icon: LifeBuoy,
+    // },
+    // {
+    //   title: "Feedback",
+    //   url: "#",
+    //   icon: Send,
+    // },
   ],
   projects: [
     {
@@ -152,7 +150,11 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  ...props
+}: SidebarProps & {
+  user: User;
+}) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -178,7 +180,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={props.user} />
       </SidebarFooter>
     </Sidebar>
   );
